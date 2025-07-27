@@ -1,0 +1,448 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Performance optimizations and mobile fixes */
+* {
+  box-sizing: border-box;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  touch-action: manipulation;
+}
+
+/* Improve touch targets for mobile */
+button, [role="button"], .clickable {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Prevent zoom on input focus on iOS */
+input, select, textarea {
+  font-size: 16px;
+}
+
+/* Smooth scrolling for mobile */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom animations for social proof */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.5s ease-out;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.5s ease-out;
+}
+
+/* Preload critical fonts */
+@font-face {
+  font-family: 'Inter';
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/inter/v12/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiA.woff2') format('woff2');
+}
+
+:root {
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(222, 84%, 4.9%);
+  --muted: hsl(210, 40%, 96%);
+  --muted-foreground: hsl(215, 16%, 46.9%);
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(222, 84%, 4.9%);
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(222, 84%, 4.9%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(60, 4.8%, 95.9%);
+  --secondary-foreground: hsl(24, 9.8%, 10%);
+  --accent: hsl(60, 4.8%, 95.9%);
+  --accent-foreground: hsl(24, 9.8%, 10%);
+  --destructive: hsl(0, 84.2%, 60.2%);
+  --destructive-foreground: hsl(60, 9.1%, 97.8%);
+  --ring: hsl(222, 84%, 4.9%);
+  --radius: 0.5rem;
+  
+  /* Custom colors for Christian coloring book theme - Professional and modern */
+  --primary-blue: hsl(216, 89%, 58%);
+  --primary-light-blue: hsl(216, 85%, 72%);
+  --secondary-blue: hsl(216, 90%, 88%);
+  --accent-yellow: hsl(45, 95%, 62%);
+  --accent-orange: hsl(25, 95%, 62%);
+  --accent-green: hsl(142, 65%, 55%);
+  --accent-pink: hsl(340, 78%, 75%);
+  --text-white: hsl(0, 0%, 100%);
+  --text-light: hsl(216, 45%, 82%);
+  --text-dark: hsl(220, 30%, 20%);
+  --text-medium: hsl(220, 20%, 50%);
+  --background-gradient: linear-gradient(135deg, hsl(216, 89%, 58%) 0%, hsl(216, 85%, 72%) 100%);
+  --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.dark {
+  --background: hsl(240, 10%, 3.9%);
+  --foreground: hsl(0, 0%, 98%);
+  --muted: hsl(240, 3.7%, 15.9%);
+  --muted-foreground: hsl(240, 5%, 64.9%);
+  --popover: hsl(240, 10%, 3.9%);
+  --popover-foreground: hsl(0, 0%, 98%);
+  --card: hsl(240, 10%, 3.9%);
+  --card-foreground: hsl(0, 0%, 98%);
+  --border: hsl(240, 3.7%, 15.9%);
+  --input: hsl(240, 3.7%, 15.9%);
+  --primary: hsl(207, 90%, 54%);
+  --primary-foreground: hsl(211, 100%, 99%);
+  --secondary: hsl(240, 3.7%, 15.9%);
+  --secondary-foreground: hsl(0, 0%, 98%);
+  --accent: hsl(240, 3.7%, 15.9%);
+  --accent-foreground: hsl(0, 0%, 98%);
+  --destructive: hsl(0, 62.8%, 30.6%);
+  --destructive-foreground: hsl(0, 0%, 98%);
+  --ring: hsl(240, 4.9%, 83.9%);
+}
+
+@keyframes pulse-scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    min-width: 320px;
+  }
+
+  .font-heading {
+    font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Ensure all containers are mobile-first */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-white/20 shadow-xl;
+  }
+  
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  .professional-shadow {
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .professional-shadow-hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* Custom utility classes for the Christian coloring book theme */
+.bg-primary-blue {
+  background-color: var(--primary-blue);
+}
+
+.bg-primary-light-blue {
+  background-color: var(--primary-light-blue);
+}
+
+.bg-secondary-purple {
+  background-color: var(--secondary-purple);
+}
+
+.bg-secondary-green {
+  background-color: var(--secondary-green);
+}
+
+.bg-accent-yellow {
+  background-color: var(--accent-yellow);
+}
+
+.bg-accent-orange {
+  background-color: var(--accent-orange);
+}
+
+.bg-accent-pink {
+  background-color: var(--accent-pink);
+}
+
+.bg-background-cream {
+  background-color: var(--background-cream);
+}
+
+.text-primary-blue {
+  color: var(--primary-blue);
+}
+
+.text-primary-light-blue {
+  color: var(--primary-light-blue);
+}
+
+.text-secondary-purple {
+  color: var(--secondary-purple);
+}
+
+.text-secondary-green {
+  color: var(--secondary-green);
+}
+
+.text-accent-orange {
+  color: var(--accent-orange);
+}
+
+.text-accent-pink {
+  color: var(--accent-pink);
+}
+
+.text-text-dark {
+  color: var(--text-dark);
+}
+
+.text-text-medium {
+  color: var(--text-medium);
+}
+
+/* Custom gradient backgrounds */
+.bg-hero-gradient {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+}
+
+.bg-offer-gradient {
+  background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-light-blue) 100%);
+}
+
+.bg-main-gradient {
+  background: var(--background-gradient);
+}
+
+/* Fredoka font fallback */
+.font-fredoka {
+  font-family: "Fredoka One", "Comic Sans MS", cursive;
+  font-weight: 400;
+}
+
+/* Smooth animations */
+@keyframes bounce-gentle {
+  0%, 20%, 53%, 80%, 100% {
+    transform: translate3d(0,0,0);
+  }
+  40%, 43% {
+    transform: translate3d(0, -6px, 0);
+  }
+  70% {
+    transform: translate3d(0, -3px, 0);
+  }
+  90% {
+    transform: translate3d(0, -1px, 0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes pulse-slow-orange {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(251, 146, 60, 0.4);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 0 8px rgba(251, 146, 60, 0);
+  }
+}
+
+.animate-bounce-gentle {
+  animation: bounce-gentle 2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s infinite;
+}
+
+.animate-pulse-slow-orange {
+  animation: pulse-slow-orange 3s infinite;
+}
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 480px) {
+  .font-fredoka {
+    line-height: 1.2;
+  }
+  
+  /* Prevent horizontal overflow on very small screens */
+  .max-w-xs {
+    max-width: 320px;
+  }
+  
+  /* Ensure buttons don't overflow */
+  .text-xl {
+    font-size: 1rem;
+  }
+  
+  /* Constrain image sizes */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Mobile-first padding */
+  .px-3 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Better mobile spacing */
+  .py-12 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  
+  /* Constrain card widths */
+  .rounded-xl, .rounded-2xl, .rounded-3xl {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+  }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 360px) {
+  .max-w-xs, .max-w-sm {
+    max-width: 320px;
+  }
+  
+  .px-3, .px-4 {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+  
+  /* Smaller text on very small screens */
+  .text-2xl {
+    font-size: 1.25rem;
+  }
+  
+  .text-3xl {
+    font-size: 1.5rem;
+  }
+  
+  /* Better mobile button sizing */
+  .py-4, .py-5 {
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+}
+
+/* Ultra small devices */
+@media (max-width: 320px) {
+  .max-w-xs, .max-w-sm {
+    max-width: 300px;
+  }
+  
+  .px-3, .px-4 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  /* Ultra compact spacing */
+  .py-8, .py-12 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+  
+  /* Mobile text adjustments */
+  .text-lg {
+    font-size: 0.875rem;
+  }
+  
+  .text-base {
+    font-size: 0.875rem;
+  }
+  
+  /* Smaller button padding for tiny screens */
+  .py-4, .py-5 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+  }
+  
+  .px-6 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Additional mobile optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .hover\:scale-105:hover {
+    transform: none;
+  }
+  
+  .hover\:shadow-xl:hover {
+    box-shadow: inherit;
+  }
+  
+  /* Better touch feedback */
+  button:active, .button:active {
+    transform: scale(0.98);
+  }
+}
